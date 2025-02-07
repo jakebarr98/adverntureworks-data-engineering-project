@@ -25,5 +25,28 @@ Within Azure I created the following resources:
 ## Dataset Used
 I used the AdventureWorks dataset available on the microsoft website. I restored the .bak file in my SQL Server Management Studio 
 
-## Step 1: Restoring database
-I started 
+## Step 1: Data Factory
+I started by building a pipeline in data factory that looks up the tables in my on prem SQL server
+I used a lookup activity, linked it to my on prem SQL Server and used the following query to return all tables in my database where the schema was 'SalesLT'
+
+```ruby
+SELECT
+s.name AS SchemaName,
+t.Name AS TableName
+FROM sys.tables t
+INNER JOIN sys.schemas s
+ON t.schema_id = s.schema_id
+WHERE s.Name = 'SalesLT'
+```
+I then created a for each activity, within which there was a copy data activity that would copy the data from each of the tables the lookup returned
+
+In order to execute this, I first created 
+
+```ruby
+@item().SchemaName
+@item().TableName
+```
+
+```ruby
+@{concat('SELECT * FROM ', item().SchemaName,'.',item().TableName )}
+```
