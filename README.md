@@ -79,13 +79,13 @@ In datafactory, I created a following action on the success of the copy tables a
 
 This concluded my datafactory pipeline, as can be seen below:
 
-insert pipeline screenshot
+![Data Factpry Pipeline](https://github.com/jakebarr98/adverntureworks-data-engineering-project/blob/main/DataFactoryPipeline.png)
 
 ## Step 4: Create views in Synapse
 
 Next, I launched Synapse Studio and created a new serverless SQL database (gold_db). As my datalake is already linked to Synapse, I had access to all of the data in my storage containers. 
 
-I want to create a view for each of my tables in the gold storage container ** explain why **. In order to do this dynamically I created a pipeline within Synapse that runs a stored procedure, using @viewname as a variable to create a view for each table in the gold storage container. 
+I wanted to create a view for each of my tables in the gold storage container. In order to do this dynamically I created a pipeline within Synapse that runs a stored procedure, using @viewname as a variable to create a view for each table in the gold storage container. 
 
 Firstly, I created the stored procedure that would create the view, using the script below:
 ```ruby
@@ -120,9 +120,11 @@ Next I added a For Each loop, within which I added a dynamic expression to fetch
 ```
 Within the for each, I added a stored procedure activity. In order to make this dynamic and use the @ViewName variable, I created a Stored Procedure parameter within the activity settings as can be seen below - this uses the table name as the @ViewName variable
 
-insert pic of parameter
+![Stored Procedure Parameter](https://github.com/jakebarr98/adverntureworks-data-engineering-project/blob/main/StoredProcParameter.png)
 
 After triggering once, this pipeline doesn't have to be run again unless there are any schema changes since it's a view
+
+![Synapse Pipeline](https://github.com/jakebarr98/adverntureworks-data-engineering-project/blob/main/SynapsePipeline.png)
 
 ## Step 5: Load into PowerBI & Create Data Model
 
