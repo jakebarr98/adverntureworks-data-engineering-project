@@ -1,8 +1,7 @@
 # End to End Azure Data Engineering Project
 
-This project is a basic beginners project to help me understand the fundamentals of data engineering using the microsoft stack of Azure.
+This project's purpose is to demonstrate my ability to create an end to end data engineering solution using microsoft Azure to build pipelines automating data extraction, transformation and loading into PowerBI for reporting.
 
-My dataset for this project is the Adventureworks database from Microsoft, which I had restored in SSMS
 
 ## Architecture
 ![Project Architecture](https://github.com/jakebarr98/adverntureworks-data-engineering-project/blob/main/DataEngProjectDA.jpeg)
