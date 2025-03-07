@@ -1,6 +1,6 @@
 # End to End Azure Data Engineering Project
 
-This project's purpose is to demonstrate my ability to create an end to end data engineering solution using microsoft Azure to build pipelines automating data extraction, transformation and loading into PowerBI for reporting.
+This project's purpose is to demonstrate my ability to create an end to end data engineering solution using Microsoft Azure to build pipelines automating data extraction, transformation and loading into PowerBI for reporting.
 
 
 ## Architecture
@@ -14,11 +14,11 @@ This project's purpose is to demonstrate my ability to create an end to end data
 - PowerBI
 
 ## Dataset Used
-I used the AdventureWorks dataset available on the microsoft website. I restored the .bak file in my SQL Server Management Studio 
+I used the AdventureWorks dataset available on the Microsoft website. I restored the .bak file in my SQL Server Management Studio 
 
 ## Step 1: Data Factory - Extract Data
-I started by building a pipeline in data factory that looks up the tables in my on prem SQL server
-I used a lookup activity, linked it to my on prem SQL Server and used the following query to return all tables in my database where the schema was 'SalesLT'
+I started by building a pipeline in data factory that looks up the tables in my on-prem SQL server
+I used a lookup activity, linked it to my on-prem SQL Server and used the following query to return all tables in my database where the schema was 'SalesLT'
 
 ```ruby
 SELECT
@@ -31,7 +31,7 @@ WHERE s.Name = 'SalesLT'
 ```
 I then created a for each activity, within which there was a copy data activity that would copy the data from each of the tables the lookup returned
 
-My source was the on prem SQL server, from which I ran the following query:
+My source was the on-prem SQL server, from which I ran the following query:
 
 ```ruby
 @{concat('SELECT * FROM ', item().SchemaName,'.',item().TableName )}
@@ -48,16 +48,16 @@ tablename = @item().TableName
 ```
 This would create a new folder within the bronze container for the schema, and then within this folder, created a folder for each table, which contains the parquet file of that tables data.
 
-## Step 2: Databricks - Transform Data Scipting
-In databricks I started by creating a single node cluster compute to run the notebooks. As I am extracting from data factory, transforming in databricks and loading in synapse, I need a copute that is able to process all of the information from the 3 resources. I only need it to be single node as all of the resources are located on a single machine.
+## Step 2: Databricks - Transform Data Scripting
+In databricks I started by creating a single node cluster compute to run the notebooks. As I am extracting from data factory, transforming in databricks and loading in synapse, I need a compute that is able to process all of the information from the 3 resources. I only need it to be single node as all of the resources are located on a single machine.
 
 Following this, I started with my first notebook which was to mount the data lake storage containers I was going to be reading data from and writing data to. My storage mount script is below:
 
 ![Storage mount python script](https://github.com/jakebarr98/adverntureworks-data-engineering-project/blob/main/storagemount.ipynb)
 
-Once my storage containers were mounted, I was ready to begin transofrming the data
+Once my storage containers were mounted, I was ready to begin transforming the data
 
-The first transformation I underwent was changingthe formatting for all of the date fields in each of the tables. I then wrote the updated data into the silver storage mount. Python script below
+The first transformation I underwent was changing the formatting for all of the date fields in each of the tables. I then wrote the updated data into the silver storage mount. Python script below
 
 ![Bronze to silver python script](https://github.com/jakebarr98/adverntureworks-data-engineering-project/blob/e8c2535498f087b180027c6f69a021737a21aa93/bronze%20to%20silver%20-%20extended.ipynb)
 
