@@ -13,14 +13,6 @@ This project's purpose is to demonstrate my ability to create an end to end data
 - Azure
 - PowerBI
 
-Within Azure I created the following resources:
-  Resource Group
-    Subscription
-    Key Vault
-    Data Factory
-    Databricks
-    Storage Account (Data Lake)
-
 ## Dataset Used
 I used the AdventureWorks dataset available on the microsoft website. I restored the .bak file in my SQL Server Management Studio 
 
@@ -57,7 +49,7 @@ tablename = @item().TableName
 This would create a new folder within the bronze container for the schema, and then within this folder, created a folder for each table, which contains the parquet file of that tables data.
 
 ## Step 2: Databricks - Transform Data Scipting
-In databricks I started by creating a single node cluster compute. [EXPLAIN WHY]
+In databricks I started by creating a single node cluster compute to run the notebooks. As I am extracting from data factory, transforming in databricks and loading in synapse, I need a copute that is able to process all of the information from the 3 resources. I only need it to be single node as all of the resources are located on a single machine.
 
 Following this, I started with my first notebook which was to mount the data lake storage containers I was going to be reading data from and writing data to. My storage mount script is below:
 
